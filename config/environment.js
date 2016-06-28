@@ -2,10 +2,12 @@
 
 module.exports = function(environment) {
   var ENV = {
-    modulePrefix: 'ember-test',
+    modulePrefix: 'frontend',
     environment: environment,
     baseURL: '/',
     locationType: 'auto',
+    podModulePrefix: 'frontend/pods',
+    exportApplicationGlobal: true,
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build

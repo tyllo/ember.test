@@ -1,10 +1,20 @@
 /*jshint node:true*/
 /* global require, module */
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
+var bourbon = require('node-bourbon');
+var resetstyle = require('node-reset-scss');
+
+console.log(bourbon.includePaths)
+console.log(resetstyle.includePath)
 
 module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
-    // Add options here
+    sassOptions: {
+      includePaths: ['app'].concat(
+        bourbon.includePaths,
+        resetstyle.includePath
+      )
+    }
   });
 
   // Use `app.import` to add additional libraries to the generated
