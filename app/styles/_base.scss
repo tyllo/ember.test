@@ -1,0 +1,50 @@
+/******************************************
+ *                base
+ =========================================*/
+
+html, body {
+  font-family: 'Arial', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.grid--container {
+  @include clearfix;
+
+  min-width: rem($container-width);
+  max-width: rem($container-width);
+  margin: auto;
+  padding: rem($container-padding);
+}
+
+.grid--aside {
+  margin-right: rem($aside-paddig);
+  width: rem($aside-width);
+  float: left;
+  display: block;
+}
+
+.grid--content {
+  float: left;
+  display: block;
+  width: calc(100% - #{rem($aside-width + $aside-paddig)});
+}
+
+strong {
+  font-weight: bold;
+}
+
+a {
+  color: $link-color;
+  text-decoration: none;
+  &:hover {
+    color: lighten($link-color, 40%);
+    text-decoration: none;
+  }
+}
+
+label:selection {
+  background: transparent;
+}

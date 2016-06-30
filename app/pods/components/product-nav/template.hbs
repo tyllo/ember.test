@@ -1,0 +1,46 @@
+<div class="product-nav--block__title">Ноутбуки</div>
+<div class="product-nav--block">Сортировать по:</div>
+
+<div class="product-nav--block">
+  {{filter-sort
+    text = 'новинкам'
+    name = 'novelty'
+    direction = (mut direction)
+    sortName = (mut sort)
+  }}
+</div>
+
+<div class="product-nav--block">
+  {{filter-sort
+    text = 'цене'
+    name = 'price'
+    direction = (mut direction)
+    sortName = (mut sort)
+  }}
+</div>
+
+<div class="product-nav--block">
+  {{filter-sort
+    text = 'популярности'
+    name = 'bestseller'
+    direction = (mut direction)
+    sortName = (mut sort)
+  }}
+</div>
+
+<div class="product-nav--block">
+  {{#app-input modifer='small' }}
+    <input type="checkbox"
+      checked={{inStock}}
+      {{action 'toggleInStock' preventDefault=false}}>
+    <span>В наличии</span>
+  {{/app-input}}
+</div>
+
+<div class="product-nav--block">
+  <a href="#" class="product-nav--sort-plitka"></a>
+</div>
+
+<div class="product-nav--block">
+  <a href="#" class="product-nav--sort-list"></a>
+</div>

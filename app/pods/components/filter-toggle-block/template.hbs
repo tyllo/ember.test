@@ -1,0 +1,8 @@
+<header {{action 'toggle'}} class={{if isOpen 'open' 'close'}}>
+  <div class="filter_toggle-block--btn"></div>
+  <div class="filter_toggle-block--title">{{title}}</div>
+</header>
+
+<div class="filter_toggle-block--content {{unless isOpen 'hide'}}">
+  {{yield}}
+</div>

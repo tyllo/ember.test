@@ -1,0 +1,34 @@
+<section class="grid--container">
+
+  {{product-nav
+    sort = (mut sort)
+    direction = (mut direction)
+    inStock = (mut inStock)
+  }}
+
+  <aside class="grid--aside">
+    {{product-filter
+      ssd = (mut ssd)
+      price = (mut price)
+      size = (mut size)
+      setMemory = (action (mut memory))
+      memoryList = (readonly memoryList)
+      setVendor = (action (mut vendor))
+      vendorList = (readonly vendorList)
+    }}
+  </aside>
+
+  <section id="content" class="grid--content">
+    {{product-list
+      model = (readonly model)
+      addToBasket = (action 'addToBasket')
+    }}
+
+    {{#if isShowPagination}}
+      {{app-pagination
+        total    = (readonly totalPages)
+        mainPath = 'index'
+      }}
+    {{/if}}
+  </section>
+</section>

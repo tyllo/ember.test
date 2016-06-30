@@ -1,0 +1,32 @@
+{{!-- vendors --}}
+<section class="product-filter--block">
+  {{filter-toggle-vendor
+    model = (readonly vendorList)
+    setModel = (action setVendor)
+  }}
+</section>
+
+{{!-- price --}}
+<section class="product-filter--block">
+  {{filter-toggle-price model=(mut price)}}
+</section>
+
+{{!-- size --}}
+<section class="product-filter--block">
+  {{filter-toggle-size model=(mut size)}}
+</section>
+
+{{!-- memory --}}
+<section class="product-filter--block">
+  {{filter-toggle-memory
+    model = (readonly memoryList)
+    setModel = (action setMemory)
+  }}
+</section>
+
+{{!-- ssd --}}
+<section class="product-filter--block">
+  {{filter-toggle-ssd
+    model = (mut ssd)
+  }}
+</section>

@@ -1,0 +1,198 @@
+/******************************************
+ *           product-list
+ =========================================*/
+
+@mixin hide-text() {
+  font: 0/0 serif;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.product-list {
+  @include clearfix;
+  display: block;
+  width: 100%;
+  padding: 0;
+}
+
+.product {
+  position: relative;
+  display: block;
+  float: left;
+  width: 100%;
+  list-style-type: none;
+}
+
+// 4 колонки
+.product__4x {
+  $count: 4;
+  $padding: 40;
+  @extend .product;
+
+  margin-left: rem($padding);
+  margin-bottom: rem($padding);
+  width: calc(#{100/$count}% - #{($count - 1)*rem($padding)/$count});
+  &:nth-child(#{$count + 1}n+1) {
+    margin-left: 0;
+  }
+}
+
+// 5 колонок
+.product__5x {
+  $count: 5;
+  @extend .product;
+  margin-left: rem(64);
+  margin-bottom: rem(64);
+  width: calc(#{100/$count}% - #{($count - 1)*rem(64)/$count});
+  &:nth-child(#{$count +1 }n+1) {
+    margin-left: 0;
+  }
+}
+
+// подчеркнутая колонка на всю длину
+.product__line {
+  @extend .product;
+  width: 100%;
+  margin: 0;
+  margin-bottom: rem(64);
+  border-bottom: 1px solid lightgray;
+}
+
+.product--image {
+ min-width: 100%;
+ width: 100%;
+}
+
+.product--title__link {
+  display: block;
+  margin-top: rem(20);
+  line-height: 1.5;
+  overflow: hidden;
+  font-size: rem($font-title-size);
+  color: $font-title-color;
+  // text-align: center;
+}
+
+/******************************************
+ *             блок с ценой              */
+
+[class^="product--price"] {
+  font-size: rem($price-font);
+  line-height: rem($price-font);
+  color: black;
+}
+
+.product--price {
+  display: inline-block;
+  margin-bottom: rem(20);
+  user-select: none;
+
+  &__old {
+    color: #999;
+    font-size: 80%;
+    text-decoration: line-through;
+  }
+  &__new {
+  }
+}
+
+/******************************************
+ *       блок с кнопкой в корзину        */
+
+[class^="product--basket"] {
+  @include clearfix;
+  display: inline-block;
+}
+
+// кнопка в стиле кнопки
+.product--basket__btn {
+  float: right;
+  padding: rem(8) rem(10);
+  // margin-top: rem(2);
+  line-height: rem(18);
+  color: #666;
+  font-size: rem(14);
+  border: 1px solid lightgray;
+  border-radius: rem(4);
+  transition: all .3s ease;
+  user-select: none;
+
+  &:hover {
+    color: white;
+    background-color: lightgray;
+  }
+}
+
+/******************************************
+ *               нижний блок             */
+
+.product--footer {
+  font-size: rem($font-availability-size);
+  vertical-align: middle;
+  white-space: nowrap;
+  text-align: center;
+  overflow: hidden;
+  user-select: none;
+}
+
+[class^="product--availability"] {
+  display: inline-block;
+  float: left;
+  font-weight: bold;
+}
+
+.product--availability__check {
+  color: $color-check;
+  border-bottom: 1px dotted $color-check;
+}
+
+.product--availability__close {
+  position: relative;
+  color: black;
+  border-bottom: 1px dotted gray;
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    z-index: -1;
+    left: -2px; top: -2px; right: -2px; bottom: -2px;
+    background-color: #eee;
+  }
+}
+
+/******************************************
+ *                сравнить               */
+
+[class^="product--input"] {
+  color: $font-title-color;
+  border-bottom: 1px dashed $font-title-color;
+  float: right;
+
+  & input {
+    display: none;
+    margin: 0;
+    margin-top: rem(-4);
+    vertical-align: middle;
+  }
+}
+
+.product--input__plus {
+  cursor: pointer;
+
+  input ~ span:before {
+    content: '';
+    display: block;
+    margin-left: rem(-26);
+    height: rem(12);
+    float: left;
+    width: rem(24);
+    background-image: url(images/icons/plus.svg);
+    background-repeat: no-repeat;
+    opacity: 0.3;
+  }
+
+  input:checked ~ span:before {
+    opacity: 1;
+  }
+}
+

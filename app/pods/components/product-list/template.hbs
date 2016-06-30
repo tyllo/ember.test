@@ -1,0 +1,10 @@
+{{#each model as |product index|}}
+  {{#if (is-equal-by-modul index 4)}}
+    <li class="product__line"></li>
+  {{/if}}
+
+  {{product-list-item
+    product = (readonly product)
+    addToBasket = (action addToBasket)
+  }}
+{{/each}}

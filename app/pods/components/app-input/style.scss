@@ -1,0 +1,98 @@
+/******************************************
+ *             app-input
+ =========================================*/
+
+$size: rem(16);
+$url: 'images/icons/check2.svg';
+
+.app-input {
+  display: inline-block;
+  position: relative;
+  padding-left: $size + rem(8);
+  input {
+    display: none;
+  }
+
+  &--helper {
+    position: absolute;
+    left: 0;
+    top: 7px;
+    user-select: none;
+    display: inline-block;
+    height: $size;
+    width: $size;
+
+    &:before, &:after {
+      content: '';
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      vertical-align: middle;
+      display: inline-block;
+    }
+    &:before {
+      box-shadow: inset 0 0 4px rgba(0,0,0,0.2);
+      border: 1px solid lightgray;
+    }
+    &:after {
+      margin-left: -$size;
+    }
+  }
+
+  &--helper__small {
+    @extend .app-input--helper;
+    top: 2px;
+    margin-left: .5rem;
+
+    $ratio: .7;
+    height: $ratio*$size;
+    width: $ratio*$size;
+    &:after {
+      margin-left: -$ratio*$size;
+    }
+  }
+
+  &--helper__round {
+    @extend .app-input--helper;
+
+    &:after {
+      border-radius: rem(2);
+    }
+  }
+
+  input:checked ~ &--helper:after {
+    background-image: url($url);
+    background-size: 100%;
+    background-position: center 0;
+    background-repeat: no-repeat;
+  }
+
+  input:disabled ~ &--helper:before {
+    background-color: lightgray;
+  }
+
+  // круглый input
+  &--helper__circle {
+    @extend .app-input--helper;
+
+    height: 1.25*$size;
+    width: 1.25*$size;
+    &:before {
+      border-radius: $size;
+    }
+  }
+
+  input:checked ~ &--helper__circle:after {
+    position: absolute;
+    top: 4px;
+    right: 5px;
+    background-image: none;
+    background-position: center;
+    background-color: orange;
+    border-radius: $size;
+    height: 2*$size/3;
+    width: 2*$size/3;
+  }
+}

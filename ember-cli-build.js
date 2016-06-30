@@ -4,16 +4,22 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 var bourbon = require('node-bourbon');
 var resetstyle = require('node-reset-scss');
 
-console.log(bourbon.includePaths)
-console.log(resetstyle.includePath)
-
 module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
     sassOptions: {
-      includePaths: ['app'].concat(
+      includePaths: ['app', 'app/pods'].concat(
         bourbon.includePaths,
         resetstyle.includePath
       )
+    },
+
+    autoprefixer: {
+      browsers: ['last 4 version'],
+      cascade: false
+    },
+
+    fingerprint: {
+      exclude: ['images/notebooks'],
     }
   });
 

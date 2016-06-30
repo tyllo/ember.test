@@ -1,0 +1,18 @@
+{{#filter-toggle-block
+  title = 'Диагональ экрана, дюймы'
+  name  = 'diag'
+  isOpen = (readonly isOpen)
+}}
+
+  {{!--
+  <div class="product-filter--range">
+    <input type="range">
+  </div>
+  --}}
+
+  <div class="product-filter--input">
+    <input type="tel" value={{from}}>
+    &#8212;
+    <input type="tel" value={{to}}>
+  </div>
+{{/filter-toggle-block}}

@@ -1,0 +1,39 @@
+{{product-ballons
+  isNovelty = (readonly novelty)
+  isBestseller = (readonly bestseller)
+}}
+
+<img
+  src="assets/images/{{product.image}}"
+  alt="{{product.brend}} {{product.model}}"
+  class="product--image"
+>
+<a href="#" class="product--title__link">
+  Ноутбук {{product.brend}} {{product.model}}
+</a>
+
+{{product-rating
+  rating = (readonly product.rating)
+  review = (readonly product.review)
+}}
+
+<div class="product--price">
+  <div class="product--price__old">{{format-currency product.priceOld}} р.</div>
+  <div class="product--price__new">{{format-currency product.price}} р.</div>
+</div>
+<a href="#" class="product--basket__btn" {{action addToBasket product}}>
+  В корзину
+</a>
+
+<footer class="product--footer">
+  {{#if product.availability}}
+    <div class="product--availability__check">В наличии</div>
+  {{else}}
+    <div class="product--availability__close">Под заказ</div>
+  {{/if}}
+
+  <label class="product--input__plus">
+    <input type="checkbox">
+    <span>Сравнить</span>
+  </label>
+</footer>

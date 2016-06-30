@@ -1,0 +1,40 @@
+/******************************************
+ *           product-rating
+ =========================================*/
+
+[class^="product-rating--stars"] {
+  float: left;
+
+  span {
+    height: rem(13);
+    width: rem(13);
+    display: inline-block;
+    padding-right: 1rem;
+    background-image: url(images/icons/star-light.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+}
+
+.product-rating {
+  margin: rem(10) 0;
+  @include clearfix;
+  padding: rem(8) 0;
+  font-size: rem(13);
+  user-select: none;
+
+  &--stars {
+    &__0 > span,
+    &__1 > span + span,
+    &__2 > span + span + span,
+    &__3 > span + span + span + span,
+    &__4 > span + span + span + span + span {
+      background-image: url(images/icons/star.png);
+    }
+  }
+
+  &--link {
+    display: inline-block;
+    float: right;
+  }
+}

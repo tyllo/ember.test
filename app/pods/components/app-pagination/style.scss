@@ -1,0 +1,25 @@
+
+/******************************************
+ *            app-pagination
+ =========================================*/
+
+.pagination {
+  display: block;
+}
+
+[class^="pagination--link"] {
+  display: inline-block;
+  padding: rem(12) rem(16);
+  border: 1px solid #eee;
+}
+
+.pagination--link {
+  &.active {
+    background-color: #eee;
+    pointer-events: none;
+  }
+  &:hover {
+    background-color: darken(#eee, 10%);
+    color: inherit;
+  }
+}

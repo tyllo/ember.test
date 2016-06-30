@@ -1,0 +1,5 @@
+{{#each pages as |page|}}
+  {{#link-to mainPath (query-params page=page.index) class='pagination--link'}}
+    {{page.index}}
+  {{/link-to}}
+{{/each}}

@@ -1,0 +1,25 @@
+{{#filter-toggle-block
+  title = 'Наличие SSD'
+  name  = 'ssd'
+  isOpen = (readonly isOpen)
+}}
+  <ul class="product-filter--list__2">
+    <li>
+      {{#app-input modifer = 'circle'}}
+        <input type='radio' name='true'
+          checked={{if model 'checked'}}
+          onclick={{action 'setModel' true }}>
+        <span>Есть</span>
+      {{/app-input}}
+    </li>
+
+    <li>
+      {{#app-input modifer = 'circle'}}
+        <input type='radio' name='false'
+          checked={{unless model 'checked'}}
+          onclick={{action 'setModel' false }}>
+        <span>Нет</span>
+      {{/app-input}}
+    </li>
+  </ul>
+{{/filter-toggle-block}}

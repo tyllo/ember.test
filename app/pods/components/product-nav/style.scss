@@ -1,0 +1,80 @@
+/******************************************
+ *         components/product-sort
+ =========================================*/
+
+@mixin font-icons() {
+  margin-right: rem(4);
+  line-height: 80%;
+  color: inherit;
+  font-family: 'icon';
+  font-size: 50%;
+}
+
+.product-nav {
+  position: relative;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  background-color: none;
+  white-space: nowrap;
+  color: $font-description-color;
+  font-size: 0;
+  text-align: right;
+  border-bottom: 1px solid $border-color;
+  user-select: none;
+}
+
+[class^="product-nav--block"] {
+  padding: rem(12);
+  line-height: 1;
+  display: inline-block;
+  font-size: rem(12);
+}
+
+/******************************************
+ *              заголовок                */
+
+.product-nav--block__title {
+  float: left;
+  font-size: rem(24);
+  color: black;
+}
+
+.sort-up, .sort-down {
+  display: inline-block;
+}
+
+.sort-up:after,
+.sort-down:after {
+  content: '';
+  height: rem(8);
+  width: rem(8);
+  margin-left: rem(2);
+  display: inline-block;
+  background-image: url(images/icons/sort.svg);
+  background-repeat:  no-repeat;
+  background-size: cover;
+}
+
+.sort-up:after {
+  transform: scaleY(-1);
+  // filter: FlipH;
+}
+
+/******************************************
+ *            плитки или список          */
+
+.product-nav--sort-list,
+.product-nav--sort-plitka {
+  height: rem(12);
+  width: rem(12);
+  display: inline-block;
+  background-repeat: no-repeat;
+}
+
+.product-nav--sort-list {
+  background-image: url(images/icons/sort-list.svg);
+}
+
+.product-nav--sort-plitka {
+  background-image: url(images/icons/sort-plitka.svg);
+}

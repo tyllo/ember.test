@@ -1,0 +1,18 @@
+{{#filter-toggle-block
+  title = 'Производитель'
+  name  = 'vendor'
+  isOpen = (readonly isOpen)
+}}
+  <ul class="product-filter--list">
+    {{#each model as |item index| }}
+      <li>
+        {{#app-input}}
+          <input type="checkbox"
+            checked={{item.checked}}
+            onclick={{action 'checked' index }}>
+          <span>{{item.name}}({{item.count}})</span>
+        {{/app-input}}
+      </li>
+      {{/each}}
+  </ul>
+{{/filter-toggle-block}}

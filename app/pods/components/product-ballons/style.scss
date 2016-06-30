@@ -1,0 +1,43 @@
+/******************************************
+ *            product-ballons
+ =========================================*/
+
+[class^="product-ballons"] {
+  width: rem(100);
+  position: absolute;
+  margin-top: rem(16);
+  font-size: rem(10);
+  font-weight: bold;
+  color: white;
+}
+
+.product-ballon {
+  &-list__rotate {
+    transform: rotate(-23deg);
+  }
+
+  &--novelty,
+  &--bestseller {
+    display: inline-block;
+    padding: 0 rem(4);
+    margin-bottom: rem(4);
+    height: rem(16);
+    line-height: rem(16);
+    background-repeat: no-repeat;
+    padding-left: rem(20);
+    background-position: 2px center;
+    background-size: auto 75%;
+    border-radius: 3px;
+  }
+
+  &--novelty {
+    background-image: url(images/icons/star.svg);
+    background-color: $ballon-color-novelty;
+  }
+
+  &--bestseller {
+    background-image: url(images/icons/heart.svg);
+    background-color: $ballon-color-bestseller;
+  }
+}
+

@@ -1,0 +1,18 @@
+{{#filter-toggle-block
+  title  = 'Размер оперативной памяти'
+  name   = 'memory'
+  isOpen = (mut isOpen)
+}}
+  <ul class="product-filter--list__2">
+    {{#each model as |item index|}}
+      <li>
+        {{#app-input}}
+          <input type="checkbox"
+            checked={{item.checked}}
+            onclick={{action 'checked' index }}>
+          <span>{{item.name}}</span>
+        {{/app-input}}
+      </li>
+    {{/each}}
+  </ul>
+{{/filter-toggle-block}}

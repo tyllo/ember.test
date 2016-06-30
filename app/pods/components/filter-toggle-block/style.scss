@@ -1,0 +1,37 @@
+/******************************************
+ *        filter-toggle-block
+ =========================================*/
+
+.filter_toggle-block {
+  &--title {
+    $size: rem(20);
+    line-height: $size;
+    cursor: pointer;
+    color: $font-title-color;
+  }
+
+  &--btn {
+    $size: rem(20);
+    display: inline-block;
+    height: $size;
+    width: $size;
+    float: right;
+    cursor: pointer;
+    border: 1px solid lightgray;
+    border-radius: $size;
+    background-image: url(images/icons/filter.svg);
+    background-repeat: no-repeat;
+    background-position: center 46%;
+
+    .open & {
+      transform: scaleY(-1);
+    }
+  }
+
+  &--content {
+    &.hide {
+      display: none;
+      overflow: hidden;
+    }
+  }
+}
