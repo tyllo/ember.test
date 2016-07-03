@@ -31,8 +31,8 @@
 <div class="product-nav--block">
   {{#app-input modifer='small' }}
     <input type="checkbox"
-      checked={{inStock}}
-      {{action 'toggleInStock' preventDefault=false}}>
+      checked={{availability}}
+      {{action 'toggleAvailability' preventDefault=false}}>
     <span>В наличии</span>
   {{/app-input}}
 </div>

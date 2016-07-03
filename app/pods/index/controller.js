@@ -4,7 +4,7 @@ const DEFAULT_ITEMS_ON_PAGE = 8;
 
 export default Ember.Controller.extend({
   queryParams: [
-    { inStock: 'in-stock' },
+    'availability',
     'count',
     'page',
     'direction',
@@ -17,7 +17,7 @@ export default Ember.Controller.extend({
   ],
 
   page: 1,
-  inStock: false,
+  availability: false,
   memory: [],
   price: [],
   vendor: [],
@@ -55,7 +55,7 @@ export default Ember.Controller.extend({
       var defaultQueryParams = {
         count: DEFAULT_ITEMS_ON_PAGE,
         page: 1,
-        inStock: false,
+        availability: false,
         memory: [],
         price: [],
         vendor: [],

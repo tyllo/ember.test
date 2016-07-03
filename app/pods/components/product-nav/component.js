@@ -4,8 +4,8 @@ export default Ember.Component.extend({
   classNames: ['product-nav'],
 
   actions: {
-    toggleInStock() {
-      this.toggleProperty('inStock');
+    toggleAvailability() {
+      this.toggleProperty('availability');
     }
   },
 });

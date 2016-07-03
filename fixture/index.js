@@ -5,7 +5,7 @@ var FILTERS = [
   'memory',
   'vendor',
   'ssd',
-  'inStock',
+  'availability',
   'price',
   'size',
   'sort',
@@ -105,10 +105,10 @@ function filteredNotebooks(notebooks, query, filter) {
         }).indexOf(notebook.brend.toLowerCase()) !== -1;
       });
 
-    case 'inStock':
+    case 'availability':
       return notebooks.filter(function(notebook) {
         var availability = (notebook.availability  || false).toString();
-        return query.inStock === 'true' ? notebook.availability === true : true;
+        return query.availability === 'true' ? notebook.availability === true : true;
       });
 
     case 'ssd':

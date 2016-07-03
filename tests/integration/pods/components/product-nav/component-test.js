@@ -17,16 +17,16 @@ test('it should show', function(assert) {
   assert.ok(/новинкам/i.test(text), '- filter novelity');
   assert.ok(/цене/i.test(text), '- filter price');
   assert.ok(/популярности/i.test(text), '- filter bestseller');
-  assert.ok(/В наличии/i.test(text), '- filter inStock');
+  assert.ok(/В наличии/i.test(text), '- filter availability');
 });
 
-test('it should send action toggle inStock param', function(assert) {
-  this.set('inStock', false);
-  this.render(hbs`{{product-nav inStock=(mut inStock)}}`);
+test('it should send action toggle availability param', function(assert) {
+  this.set('availability', false);
+  this.render(hbs`{{product-nav availability=(mut availability)}}`);
 
   $(this.$('input[type=checkbox]')).click();
-  assert.equal(this.get('inStock'), true, '- set to true on 1 click');
+  assert.equal(this.get('availability'), true, '- set to true on 1 click');
 
   $(this.$('input[type=checkbox]')).click();
-  assert.equal(this.get('inStock'), false, '- set to false on 2 click');
+  assert.equal(this.get('availability'), false, '- set to false on 2 click');
 });
