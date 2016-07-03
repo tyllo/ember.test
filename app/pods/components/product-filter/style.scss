@@ -38,8 +38,8 @@
     padding: rem(20);
     font-size: rem(14);
     border: 1px solid $border-color;
-    border-bottom: none;
-    &:last-child {
+    border-top: none;
+    &:first-child {
       border: 1px solid $border-color;
     }
   }
@@ -118,5 +118,9 @@
       @include font-icons();
       content: 'f';
     }
+  }
+
+  &--btn {
+    margin-top: 1rem;
   }
 }

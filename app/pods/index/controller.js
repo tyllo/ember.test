@@ -5,6 +5,7 @@ const DEFAULT_ITEMS_ON_PAGE = 8;
 export default Ember.Controller.extend({
   queryParams: [
     { inStock: 'in-stock' },
+    'count',
     'page',
     'direction',
     'sort',
@@ -50,5 +51,24 @@ export default Ember.Controller.extend({
     addToBasket(product) {
       alert(`Product "${product.model}" add to Your basket`);
     },
+
+    resetFilter() {
+      var defaultQueryParams = {
+        count: DEFAULT_ITEMS_ON_PAGE,
+        page: 1,
+        inStock: false,
+        memory: [],
+        price: [],
+        vendor: [],
+        size: [],
+        direction: undefined,
+        sort: undefined,
+        ssd: undefined,
+      };
+
+      Object.keys(defaultQueryParams).forEach(param => {
+        this.set(param, defaultQueryParams[param]);
+      });
+    }
   }
 });

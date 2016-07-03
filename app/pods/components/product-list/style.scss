@@ -116,6 +116,11 @@
   border-radius: rem(4);
   transition: all .3s ease;
   user-select: none;
+  cursor: pointer;
+
+  &.extend {
+    width: 100%;
+  }
 
   &:hover {
     color: white;
