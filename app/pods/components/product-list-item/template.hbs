@@ -13,13 +13,14 @@
 </a>
 
 {{product-rating
+  id     = (readonly product.id)
   rating = (readonly product.rating)
   review = (readonly product.review)
 }}
 
 <div class="product--price">
-  <div class="product--price__old">{{format-currency product.priceOld}} р.</div>
-  <div class="product--price__new">{{format-currency product.price}} р.</div>
+  <div class="product--price__old">{{format-currency product.price}} р.</div>
+  <div class="product--price__new">{{format-currency product.priceSale}} р.</div>
 </div>
 <a href="#" class="product--basket__btn" {{action addToBasket product}}>
   В корзину

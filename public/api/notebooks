@@ -8,7 +8,7 @@
       "rating": 1,
       "priceOld": 57530,
       "price": 16800,
-      "review": "Всего 31 отзыв",
+      "review": 31,
       "availability": true,
       "novelty": true,
       "bestseller": true
@@ -21,7 +21,7 @@
       "rating": 2,
       "priceOld": 57530,
       "price": 18600,
-      "review": "Всего 31 отзыв",
+      "review": 45,
       "availability": true,
       "novelty": false,
       "bestseller": false
@@ -34,7 +34,7 @@
       "rating": 0,
       "priceOld": 57530,
       "price": 19300,
-      "review": "Оставить отзыв",
+      "review": 0,
       "availability": true,
       "novelty": false,
       "bestseller": false
@@ -47,7 +47,7 @@
       "rating": 4,
       "priceOld": 57530,
       "price": 21800,
-      "review": "Всего 31 отзыв",
+      "review": 90,
       "availability": true,
       "novelty": false,
       "bestseller": false
@@ -60,7 +60,7 @@
       "rating": 2,
       "priceOld": 57530,
       "price": 23700,
-      "review": "Всего 31 отзыв",
+      "review": 12,
       "availability": true,
       "novelty": false,
       "bestseller": false
@@ -73,7 +73,7 @@
       "rating": 5,
       "priceOld": 57530,
       "price": 24400,
-      "review": "Всего 31 отзыв",
+      "review": 39,
       "availability": true,
       "novelty": false,
       "bestseller": true
@@ -86,7 +86,7 @@
       "rating": 2,
       "priceOld": 57530,
       "price": 27800,
-      "review": "Всего 31 отзыв",
+      "review": 38,
       "availability": true,
       "novelty": false,
       "bestseller": false
@@ -99,7 +99,7 @@
       "rating": 2,
       "priceOld": 57530,
       "price": 35100,
-      "review": "Всего 31 отзыв",
+      "review": 122,
       "availability": false,
       "novelty": false,
       "bestseller": false

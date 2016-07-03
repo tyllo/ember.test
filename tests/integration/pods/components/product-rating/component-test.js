@@ -10,6 +10,12 @@ test('it renders', function(assert) {
   assert.ok(this.$('.product-rating').length);
 });
 
+test('it should set link by id product', function(assert) {
+  this.set('id', '1114');
+  this.render(hbs`{{product-rating id=(readonly id)}}`);
+  assert.ok(/1114\/review/.test(this.$('a')[0].href));
+});
+
 test('it should set rating', function(assert) {
   let stub = 4;
   this.set('rating', stub);
@@ -18,7 +24,11 @@ test('it should set rating', function(assert) {
 });
 
 test('it should set link to review', function(assert) {
-  this.set('review', 'test review');
+  this.set('review', 31);
   this.render(hbs`{{product-rating review=(readonly review)}}`);
-  assert.equal(this.$().text().trim(), 'test review');
+  assert.equal(this.$().text().trim(), 'Всего 31 отзыва', '- when review not empty');
+
+  this.set('review', 0);
+  this.render(hbs`{{product-rating review=(readonly review)}}`);
+  assert.equal(this.$().text().trim(), 'Оставить отзыв', '- when review is empty');
 });

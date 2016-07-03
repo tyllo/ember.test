@@ -7,9 +7,9 @@ export default Model.extend({
   model: attr('string'),
   image: attr('string'),
   rating: attr('number'),
-  priceOld: attr('number'),
   price: attr('number'),
-  review: attr('string'),
+  priceSale: attr('number'),
+  review: attr('number'),
   availability: attr('boolean'),
   novelty: attr('boolean'),
   bestseller: attr('boolean')

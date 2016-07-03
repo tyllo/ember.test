@@ -1,7 +1,11 @@
 <div class="product-rating--stars__{{rating}}">
   <span/><span/><span/><span/><span/>
 </div>
-<a href="#" class="product-rating--link">
-  {{review}}
+<a href="{{id}}/review" class="product-rating--link">
+  {{#if review}}
+    Всего {{review}} отзыва
+  {{else}}
+    Оставить отзыв
+  {{/if}}
 </a>
 
