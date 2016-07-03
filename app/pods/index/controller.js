@@ -22,7 +22,6 @@ export default Ember.Controller.extend({
   price: [],
   vendor: [],
   size: [],
-  ssd: false,
   count: DEFAULT_ITEMS_ON_PAGE,
 
   totalPages: Ember.computed('count', 'meta.total', function() {
@@ -49,7 +48,7 @@ export default Ember.Controller.extend({
 
   actions: {
     addToBasket(product) {
-      alert(`Product "${product.model}" add to Your basket`);
+      alert(`Product "${product.get('brend')} ${product.get('model')}" add to Your basket`);
     },
 
     resetFilter() {

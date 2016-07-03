@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import { moduleFor, test } from 'ember-qunit';
 
 moduleFor('controller:index', 'Unit | Controller | index', {
@@ -72,10 +73,10 @@ test('it should add product to basket', function(assert) {
   let controller = this.subject();
 
   let cachedAlert = window.alert;
-  let product = { model: 'test product' };
+  let product = Ember.Object.create({ model: 'test product' });
 
   window.alert = (expect) => {
-    assert.equal(expect, `Product "${product.model}" add to Your basket`);
+    assert.equal(expect, `Product "${product.get('brend')} ${product.get('model')}" add to Your basket`);
     done();
   };
 
