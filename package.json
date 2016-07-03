@@ -47,6 +47,7 @@
     "node-bourbon": "4.2.8"
   },
   "dependencies": {
+    "lodash": "^4.13.1",
     "node-bourbon": "^4.2.8",
     "node-reset-scss": "^1.0.1"
   }

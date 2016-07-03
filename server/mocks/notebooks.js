@@ -1,12 +1,19 @@
 /*jshint node:true*/
 
+var fixture = require('../../fixture');
 
 module.exports = function(app) {
   var express = require('express');
   var notebooksRouter = express.Router();
 
   notebooksRouter.get('/', function(req, res) {
+    var notebooks = fixture.notebooks.get(req.query);
+    var meta = fixture.notebooks.meta();
+    meta.total = notebooks.total;
+
     res.send({
+      notebooks: notebooks,
+      meta: meta
     });
   });
 
