@@ -13,6 +13,6 @@ export default Ember.Component.extend({
   },
 
   _setOpenParam() {
-    this.set('isOpen', !!this.get('model'));
+    this.set('isOpen', this.get('model') === undefined ? false : true);
   },
 });

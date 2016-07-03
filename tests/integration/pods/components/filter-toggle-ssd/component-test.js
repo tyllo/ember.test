@@ -13,11 +13,15 @@ test('it renders', function(assert) {
 test('it should open on checked', function(assert) {
   this.set('model', true);
   this.render(hbs`{{filter-toggle-ssd model = (mut model)}}`);
-  assert.ok(this.$('.open').length);
+  assert.ok(this.$('.open').length, '- on true value');
+
+  this.set('model', false);
+  this.render(hbs`{{filter-toggle-ssd model = (mut model)}}`);
+  assert.ok(this.$('.open').length, '- on false value');
 });
 
 test('it should close on not checked', function(assert) {
-  this.set('model', false);
+  this.set('model', undefined);
   this.render(hbs`{{filter-toggle-ssd model = (mut model)}}`);
   assert.ok(this.$('.close').length);
 });

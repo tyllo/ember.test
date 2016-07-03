@@ -7,7 +7,7 @@
     <li>
       {{#app-input modifer = 'circle'}}
         <input type='radio' name='true'
-          checked={{if model 'checked'}}
+          checked={{if (is-eq model true) 'checked'}}
           onclick={{action 'setModel' true }}>
         <span>Есть</span>
       {{/app-input}}
@@ -16,7 +16,7 @@
     <li>
       {{#app-input modifer = 'circle'}}
         <input type='radio' name='false'
-          checked={{unless model 'checked'}}
+          checked={{if (is-eq model false) 'checked'}}
           onclick={{action 'setModel' false }}>
         <span>Нет</span>
       {{/app-input}}
