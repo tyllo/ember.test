@@ -11,6 +11,8 @@ module.exports = function(app) {
     var meta = fixture.notebooks.meta();
     meta.total = notebooks.total;
 
+    res.header('Access-Control-Allow-Origin', '*');
+
     res.send({
       notebooks: notebooks,
       meta: meta

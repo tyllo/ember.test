@@ -42,7 +42,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-
+    ENV.host = 'https://ember-test-api.herokuapp.com';
   }
 
   return ENV;
