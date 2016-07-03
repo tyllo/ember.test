@@ -41,6 +41,15 @@ define('frontend/tests/helpers/format-currency.jshint', ['exports'], function (e
     assert.ok(true, 'helpers/format-currency.js should pass jshint.');
   });
 });
+define('frontend/tests/helpers/is-eq.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | helpers/is-eq.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'helpers/is-eq.js should pass jshint.');
+  });
+});
 define('frontend/tests/helpers/is-equal-by-modul.jshint', ['exports'], function (exports) {
   'use strict';
 
@@ -1737,11 +1746,56 @@ define('frontend/tests/integration/pods/components/filter-toggle-ssd/component-t
         templates: []
       };
     })()));
-    assert.ok(this.$('.open').length);
+    assert.ok(this.$('.open').length, '- on true value');
+
+    this.set('model', false);
+    this.render(Ember.HTMLBars.template((function () {
+      return {
+        meta: {
+          'fragmentReason': {
+            'name': 'missing-wrapper',
+            'problems': ['wrong-type']
+          },
+          'revision': 'Ember@2.6.1',
+          'loc': {
+            'source': null,
+            'start': {
+              'line': 1,
+              'column': 0
+            },
+            'end': {
+              'line': 1,
+              'column': 41
+            }
+          }
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createComment('');
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
+          dom.insertBoundary(fragment, 0);
+          dom.insertBoundary(fragment, null);
+          return morphs;
+        },
+        statements: [['inline', 'filter-toggle-ssd', [], ['model', ['subexpr', 'mut', [['get', 'model', ['loc', [null, [1, 33], [1, 38]]]]], [], ['loc', [null, [1, 28], [1, 39]]]]], ['loc', [null, [1, 0], [1, 41]]]]],
+        locals: [],
+        templates: []
+      };
+    })()));
+    assert.ok(this.$('.open').length, '- on false value');
   });
 
   (0, _emberQunit.test)('it should close on not checked', function (assert) {
-    this.set('model', false);
+    this.set('model', undefined);
     this.render(Ember.HTMLBars.template((function () {
       return {
         meta: {
@@ -2283,6 +2337,7 @@ define('frontend/tests/integration/pods/components/product-filter/component-test
       this.set('size', []);
       this.set('memoryList', []);
       this.set('vendorList', []);
+      this.set('stub', function () {});
     }
   });
 
@@ -2302,7 +2357,7 @@ define('frontend/tests/integration/pods/components/product-filter/component-test
               'column': 0
             },
             'end': {
-              'line': 9,
+              'line': 10,
               'column': 4
             }
           }
@@ -2324,7 +2379,7 @@ define('frontend/tests/integration/pods/components/product-filter/component-test
           dom.insertBoundary(fragment, null);
           return morphs;
         },
-        statements: [['inline', 'product-filter', [], ['ssd', ['subexpr', 'mut', [['get', 'ssd', ['loc', [null, [2, 15], [2, 18]]]]], [], ['loc', [null, [2, 10], [2, 19]]]], 'price', ['subexpr', 'mut', [['get', 'price', ['loc', [null, [3, 17], [3, 22]]]]], [], ['loc', [null, [3, 12], [3, 23]]]], 'size', ['subexpr', 'mut', [['get', 'size', ['loc', [null, [4, 16], [4, 20]]]]], [], ['loc', [null, [4, 11], [4, 21]]]], 'setMemory', ['subexpr', 'action', [['subexpr', 'mut', [['get', 'memory', ['loc', [null, [5, 29], [5, 35]]]]], [], ['loc', [null, [5, 24], [5, 36]]]]], [], ['loc', [null, [5, 16], [5, 37]]]], 'memoryList', ['subexpr', 'readonly', [['get', 'memoryList', ['loc', [null, [6, 27], [6, 37]]]]], [], ['loc', [null, [6, 17], [6, 38]]]], 'setVendor', ['subexpr', 'action', [['subexpr', 'mut', [['get', 'vendor', ['loc', [null, [7, 29], [7, 35]]]]], [], ['loc', [null, [7, 24], [7, 36]]]]], [], ['loc', [null, [7, 16], [7, 37]]]], 'vendorList', ['subexpr', 'readonly', [['get', 'vendorList', ['loc', [null, [8, 27], [8, 37]]]]], [], ['loc', [null, [8, 17], [8, 38]]]]], ['loc', [null, [1, 0], [9, 4]]]]],
+        statements: [['inline', 'product-filter', [], ['ssd', ['subexpr', 'mut', [['get', 'ssd', ['loc', [null, [2, 15], [2, 18]]]]], [], ['loc', [null, [2, 10], [2, 19]]]], 'price', ['subexpr', 'mut', [['get', 'price', ['loc', [null, [3, 17], [3, 22]]]]], [], ['loc', [null, [3, 12], [3, 23]]]], 'size', ['subexpr', 'mut', [['get', 'size', ['loc', [null, [4, 16], [4, 20]]]]], [], ['loc', [null, [4, 11], [4, 21]]]], 'setMemory', ['subexpr', 'action', [['subexpr', 'mut', [['get', 'memory', ['loc', [null, [5, 29], [5, 35]]]]], [], ['loc', [null, [5, 24], [5, 36]]]]], [], ['loc', [null, [5, 16], [5, 37]]]], 'memoryList', ['subexpr', 'readonly', [['get', 'memoryList', ['loc', [null, [6, 27], [6, 37]]]]], [], ['loc', [null, [6, 17], [6, 38]]]], 'setVendor', ['subexpr', 'action', [['subexpr', 'mut', [['get', 'vendor', ['loc', [null, [7, 29], [7, 35]]]]], [], ['loc', [null, [7, 24], [7, 36]]]]], [], ['loc', [null, [7, 16], [7, 37]]]], 'vendorList', ['subexpr', 'readonly', [['get', 'vendorList', ['loc', [null, [8, 27], [8, 37]]]]], [], ['loc', [null, [8, 17], [8, 38]]]], 'reset', ['subexpr', 'action', [['get', 'stub', ['loc', [null, [9, 20], [9, 24]]]]], [], ['loc', [null, [9, 12], [9, 25]]]]], ['loc', [null, [1, 0], [10, 4]]]]],
         locals: [],
         templates: []
       };
@@ -2349,7 +2404,7 @@ define('frontend/tests/integration/pods/components/product-filter/component-test
               'column': 0
             },
             'end': {
-              'line': 9,
+              'line': 10,
               'column': 4
             }
           }
@@ -2371,7 +2426,7 @@ define('frontend/tests/integration/pods/components/product-filter/component-test
           dom.insertBoundary(fragment, null);
           return morphs;
         },
-        statements: [['inline', 'product-filter', [], ['ssd', ['subexpr', 'mut', [['get', 'ssd', ['loc', [null, [2, 15], [2, 18]]]]], [], ['loc', [null, [2, 10], [2, 19]]]], 'price', ['subexpr', 'mut', [['get', 'price', ['loc', [null, [3, 17], [3, 22]]]]], [], ['loc', [null, [3, 12], [3, 23]]]], 'size', ['subexpr', 'mut', [['get', 'size', ['loc', [null, [4, 16], [4, 20]]]]], [], ['loc', [null, [4, 11], [4, 21]]]], 'setMemory', ['subexpr', 'action', [['subexpr', 'mut', [['get', 'memory', ['loc', [null, [5, 29], [5, 35]]]]], [], ['loc', [null, [5, 24], [5, 36]]]]], [], ['loc', [null, [5, 16], [5, 37]]]], 'memoryList', ['subexpr', 'readonly', [['get', 'memoryList', ['loc', [null, [6, 27], [6, 37]]]]], [], ['loc', [null, [6, 17], [6, 38]]]], 'setVendor', ['subexpr', 'action', [['subexpr', 'mut', [['get', 'vendor', ['loc', [null, [7, 29], [7, 35]]]]], [], ['loc', [null, [7, 24], [7, 36]]]]], [], ['loc', [null, [7, 16], [7, 37]]]], 'vendorList', ['subexpr', 'readonly', [['get', 'vendorList', ['loc', [null, [8, 27], [8, 37]]]]], [], ['loc', [null, [8, 17], [8, 38]]]]], ['loc', [null, [1, 0], [9, 4]]]]],
+        statements: [['inline', 'product-filter', [], ['ssd', ['subexpr', 'mut', [['get', 'ssd', ['loc', [null, [2, 15], [2, 18]]]]], [], ['loc', [null, [2, 10], [2, 19]]]], 'price', ['subexpr', 'mut', [['get', 'price', ['loc', [null, [3, 17], [3, 22]]]]], [], ['loc', [null, [3, 12], [3, 23]]]], 'size', ['subexpr', 'mut', [['get', 'size', ['loc', [null, [4, 16], [4, 20]]]]], [], ['loc', [null, [4, 11], [4, 21]]]], 'setMemory', ['subexpr', 'action', [['subexpr', 'mut', [['get', 'memory', ['loc', [null, [5, 29], [5, 35]]]]], [], ['loc', [null, [5, 24], [5, 36]]]]], [], ['loc', [null, [5, 16], [5, 37]]]], 'memoryList', ['subexpr', 'readonly', [['get', 'memoryList', ['loc', [null, [6, 27], [6, 37]]]]], [], ['loc', [null, [6, 17], [6, 38]]]], 'setVendor', ['subexpr', 'action', [['subexpr', 'mut', [['get', 'vendor', ['loc', [null, [7, 29], [7, 35]]]]], [], ['loc', [null, [7, 24], [7, 36]]]]], [], ['loc', [null, [7, 16], [7, 37]]]], 'vendorList', ['subexpr', 'readonly', [['get', 'vendorList', ['loc', [null, [8, 27], [8, 37]]]]], [], ['loc', [null, [8, 17], [8, 38]]]], 'reset', ['subexpr', 'action', [['get', 'stub', ['loc', [null, [9, 20], [9, 24]]]]], [], ['loc', [null, [9, 12], [9, 25]]]]], ['loc', [null, [1, 0], [10, 4]]]]],
         locals: [],
         templates: []
       };
@@ -2383,6 +2438,60 @@ define('frontend/tests/integration/pods/components/product-filter/component-test
     assert.ok(/Диагональ экрана, дюймы/.test(text), '- filter size');
     assert.ok(/Размер оперативной памяти/.test(text), '- filter memory');
     assert.ok(/Наличие SSD/.test(text), '- filter ssd');
+  });
+
+  (0, _emberQunit.test)('it should send \'reset\' action', function (assert) {
+    var done = assert.async();
+
+    this.set('stub', function () {
+      assert.ok(true);
+      done();
+    });
+
+    this.render(Ember.HTMLBars.template((function () {
+      return {
+        meta: {
+          'fragmentReason': {
+            'name': 'missing-wrapper',
+            'problems': ['wrong-type']
+          },
+          'revision': 'Ember@2.6.1',
+          'loc': {
+            'source': null,
+            'start': {
+              'line': 1,
+              'column': 0
+            },
+            'end': {
+              'line': 10,
+              'column': 4
+            }
+          }
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createComment('');
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
+          dom.insertBoundary(fragment, 0);
+          dom.insertBoundary(fragment, null);
+          return morphs;
+        },
+        statements: [['inline', 'product-filter', [], ['ssd', ['subexpr', 'mut', [['get', 'ssd', ['loc', [null, [2, 15], [2, 18]]]]], [], ['loc', [null, [2, 10], [2, 19]]]], 'price', ['subexpr', 'mut', [['get', 'price', ['loc', [null, [3, 17], [3, 22]]]]], [], ['loc', [null, [3, 12], [3, 23]]]], 'size', ['subexpr', 'mut', [['get', 'size', ['loc', [null, [4, 16], [4, 20]]]]], [], ['loc', [null, [4, 11], [4, 21]]]], 'setMemory', ['subexpr', 'action', [['subexpr', 'mut', [['get', 'memory', ['loc', [null, [5, 29], [5, 35]]]]], [], ['loc', [null, [5, 24], [5, 36]]]]], [], ['loc', [null, [5, 16], [5, 37]]]], 'memoryList', ['subexpr', 'readonly', [['get', 'memoryList', ['loc', [null, [6, 27], [6, 37]]]]], [], ['loc', [null, [6, 17], [6, 38]]]], 'setVendor', ['subexpr', 'action', [['subexpr', 'mut', [['get', 'vendor', ['loc', [null, [7, 29], [7, 35]]]]], [], ['loc', [null, [7, 24], [7, 36]]]]], [], ['loc', [null, [7, 16], [7, 37]]]], 'vendorList', ['subexpr', 'readonly', [['get', 'vendorList', ['loc', [null, [8, 27], [8, 37]]]]], [], ['loc', [null, [8, 17], [8, 38]]]], 'reset', ['subexpr', 'action', [['get', 'stub', ['loc', [null, [9, 20], [9, 24]]]]], [], ['loc', [null, [9, 12], [9, 25]]]]], ['loc', [null, [1, 0], [10, 4]]]]],
+        locals: [],
+        templates: []
+      };
+    })()));
+
+    this.$('.product--basket__btn.extend').click();
   });
 });
 define('frontend/tests/integration/pods/components/product-filter/component-test.jshint', ['exports'], function (exports) {
@@ -2778,11 +2887,11 @@ define('frontend/tests/integration/pods/components/product-nav/component-test', 
     assert.ok(/новинкам/i.test(text), '- filter novelity');
     assert.ok(/цене/i.test(text), '- filter price');
     assert.ok(/популярности/i.test(text), '- filter bestseller');
-    assert.ok(/В наличии/i.test(text), '- filter inStock');
+    assert.ok(/В наличии/i.test(text), '- filter availability');
   });
 
-  (0, _emberQunit.test)('it should send action toggle inStock param', function (assert) {
-    this.set('inStock', false);
+  (0, _emberQunit.test)('it should send action toggle availability param', function (assert) {
+    this.set('availability', false);
     this.render(Ember.HTMLBars.template((function () {
       return {
         meta: {
@@ -2799,7 +2908,7 @@ define('frontend/tests/integration/pods/components/product-nav/component-test', 
             },
             'end': {
               'line': 1,
-              'column': 37
+              'column': 47
             }
           }
         },
@@ -2820,17 +2929,17 @@ define('frontend/tests/integration/pods/components/product-nav/component-test', 
           dom.insertBoundary(fragment, null);
           return morphs;
         },
-        statements: [['inline', 'product-nav', [], ['inStock', ['subexpr', 'mut', [['get', 'inStock', ['loc', [null, [1, 27], [1, 34]]]]], [], ['loc', [null, [1, 22], [1, 35]]]]], ['loc', [null, [1, 0], [1, 37]]]]],
+        statements: [['inline', 'product-nav', [], ['availability', ['subexpr', 'mut', [['get', 'availability', ['loc', [null, [1, 32], [1, 44]]]]], [], ['loc', [null, [1, 27], [1, 45]]]]], ['loc', [null, [1, 0], [1, 47]]]]],
         locals: [],
         templates: []
       };
     })()));
 
     $(this.$('input[type=checkbox]')).click();
-    assert.equal(this.get('inStock'), true, '- set to true on 1 click');
+    assert.equal(this.get('availability'), true, '- set to true on 1 click');
 
     $(this.$('input[type=checkbox]')).click();
-    assert.equal(this.get('inStock'), false, '- set to false on 2 click');
+    assert.equal(this.get('availability'), false, '- set to false on 2 click');
   });
 });
 define('frontend/tests/integration/pods/components/product-nav/component-test.jshint', ['exports'], function (exports) {
@@ -2894,6 +3003,53 @@ define('frontend/tests/integration/pods/components/product-rating/component-test
     assert.ok(this.$('.product-rating').length);
   });
 
+  (0, _emberQunit.test)('it should set link by id product', function (assert) {
+    this.set('id', '1114');
+    this.render(Ember.HTMLBars.template((function () {
+      return {
+        meta: {
+          'fragmentReason': {
+            'name': 'missing-wrapper',
+            'problems': ['wrong-type']
+          },
+          'revision': 'Ember@2.6.1',
+          'loc': {
+            'source': null,
+            'start': {
+              'line': 1,
+              'column': 0
+            },
+            'end': {
+              'line': 1,
+              'column': 35
+            }
+          }
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createComment('');
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
+          dom.insertBoundary(fragment, 0);
+          dom.insertBoundary(fragment, null);
+          return morphs;
+        },
+        statements: [['inline', 'product-rating', [], ['id', ['subexpr', 'readonly', [['get', 'id', ['loc', [null, [1, 30], [1, 32]]]]], [], ['loc', [null, [1, 20], [1, 33]]]]], ['loc', [null, [1, 0], [1, 35]]]]],
+        locals: [],
+        templates: []
+      };
+    })()));
+    assert.ok(/1114\/review/.test(this.$('a')[0].href));
+  });
+
   (0, _emberQunit.test)('it should set rating', function (assert) {
     var stub = 4;
     this.set('rating', stub);
@@ -2943,7 +3099,7 @@ define('frontend/tests/integration/pods/components/product-rating/component-test
   });
 
   (0, _emberQunit.test)('it should set link to review', function (assert) {
-    this.set('review', 'test review');
+    this.set('review', 31);
     this.render(Ember.HTMLBars.template((function () {
       return {
         meta: {
@@ -2986,7 +3142,52 @@ define('frontend/tests/integration/pods/components/product-rating/component-test
         templates: []
       };
     })()));
-    assert.equal(this.$().text().trim(), 'test review');
+    assert.equal(this.$().text().trim(), 'Всего 31 отзыва', '- when review not empty');
+
+    this.set('review', 0);
+    this.render(Ember.HTMLBars.template((function () {
+      return {
+        meta: {
+          'fragmentReason': {
+            'name': 'missing-wrapper',
+            'problems': ['wrong-type']
+          },
+          'revision': 'Ember@2.6.1',
+          'loc': {
+            'source': null,
+            'start': {
+              'line': 1,
+              'column': 0
+            },
+            'end': {
+              'line': 1,
+              'column': 43
+            }
+          }
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createComment('');
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
+          dom.insertBoundary(fragment, 0);
+          dom.insertBoundary(fragment, null);
+          return morphs;
+        },
+        statements: [['inline', 'product-rating', [], ['review', ['subexpr', 'readonly', [['get', 'review', ['loc', [null, [1, 34], [1, 40]]]]], [], ['loc', [null, [1, 24], [1, 41]]]]], ['loc', [null, [1, 0], [1, 43]]]]],
+        locals: [],
+        templates: []
+      };
+    })()));
+    assert.equal(this.$().text().trim(), 'Оставить отзыв', '- when review is empty');
   });
 });
 define('frontend/tests/integration/pods/components/product-rating/component-test.jshint', ['exports'], function (exports) {
@@ -3239,6 +3440,29 @@ define('frontend/tests/unit/helpers/format-currency-test.jshint', ['exports'], f
     assert.ok(true, 'unit/helpers/format-currency-test.js should pass jshint.');
   });
 });
+define('frontend/tests/unit/helpers/is-eq-test', ['exports', 'frontend/helpers/is-eq', 'qunit'], function (exports, _frontendHelpersIsEq, _qunit) {
+
+  (0, _qunit.module)('Unit | Helper | is eq');
+
+  (0, _qunit.test)('it should equal', function (assert) {
+    var result = (0, _frontendHelpersIsEq.isEq)([10, 10]);
+    assert.equal(result, true);
+  });
+
+  (0, _qunit.test)('it shouldn\'t equal', function (assert) {
+    var result = (0, _frontendHelpersIsEq.isEq)([10, 1]);
+    assert.equal(result, false);
+  });
+});
+define('frontend/tests/unit/helpers/is-eq-test.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | unit/helpers/is-eq-test.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/helpers/is-eq-test.js should pass jshint.');
+  });
+});
 define('frontend/tests/unit/helpers/is-equal-by-modul-test', ['exports', 'frontend/helpers/is-equal-by-modul', 'qunit'], function (exports, _frontendHelpersIsEqualByModul, _qunit) {
 
   (0, _qunit.module)('Unit | Helper | is equal by modul');
@@ -3285,7 +3509,7 @@ define('frontend/tests/unit/models/notebook-test.jshint', ['exports'], function 
     assert.ok(true, 'unit/models/notebook-test.js should pass jshint.');
   });
 });
-define('frontend/tests/unit/pods/index/controller-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+define('frontend/tests/unit/pods/index/controller-test', ['exports', 'ember', 'ember-qunit'], function (exports, _ember, _emberQunit) {
 
   (0, _emberQunit.moduleFor)('controller:index', 'Unit | Controller | index', {});
 
@@ -3355,10 +3579,10 @@ define('frontend/tests/unit/pods/index/controller-test', ['exports', 'ember-quni
     var controller = this.subject();
 
     var cachedAlert = window.alert;
-    var product = { model: 'test product' };
+    var product = _ember['default'].Object.create({ model: 'test product' });
 
     window.alert = function (expect) {
-      assert.equal(expect, 'Product "' + product.model + '" add to Your basket');
+      assert.equal(expect, 'Product "' + product.get('brend') + ' ' + product.get('model') + '" add to Your basket');
       done();
     };
 

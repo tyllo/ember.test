@@ -202,8 +202,8 @@ label:selection {
     padding: 1.25rem;
     font-size: 0.875rem;
     border: 1px solid #CCC;
-    border-bottom: none; }
-    .product-filter--block:last-child {
+    border-top: none; }
+    .product-filter--block:first-child {
       border: 1px solid #CCC; }
   .product-filter--list, .product-filter--list__2 {
     padding-top: 1.25rem;
@@ -261,6 +261,8 @@ label:selection {
     font-family: 'icon';
     font-size: 50%;
     content: 'f'; }
+  .product-filter--btn {
+    margin-top: 1rem; }
 
 /******************************************
  *           product-list
@@ -353,7 +355,10 @@ label:selection {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none; }
+  user-select: none;
+  cursor: pointer; }
+  .product--basket__btn.extend {
+    width: 100%; }
   .product--basket__btn:hover {
     color: white;
     background-color: lightgray; }

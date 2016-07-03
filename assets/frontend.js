@@ -58,6 +58,25 @@ define('frontend/helpers/format-currency', ['exports', 'ember'], function (expor
 
   exports['default'] = _ember['default'].Helper.helper(formatCurrency);
 });
+define('frontend/helpers/is-eq', ['exports', 'ember'], function (exports, _ember) {
+  var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }; })();
+
+  exports.isEq = isEq;
+
+  function isEq(_ref /*, hash*/) {
+    var _ref2 = _slicedToArray(_ref, 2);
+
+    var a = _ref2[0];
+    var b = _ref2[1];
+
+    if (a === undefined) {
+      return false;
+    }
+    return a.toString() === b.toString();
+  }
+
+  exports['default'] = _ember['default'].Helper.helper(isEq);
+});
 define('frontend/helpers/is-equal-by-modul', ['exports', 'ember'], function (exports, _ember) {
   var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }; })();
 
@@ -245,9 +264,9 @@ define('frontend/models/notebook', ['exports', 'ember-data/model', 'ember-data/a
     model: (0, _emberDataAttr['default'])('string'),
     image: (0, _emberDataAttr['default'])('string'),
     rating: (0, _emberDataAttr['default'])('number'),
-    priceOld: (0, _emberDataAttr['default'])('number'),
     price: (0, _emberDataAttr['default'])('number'),
-    review: (0, _emberDataAttr['default'])('string'),
+    priceSale: (0, _emberDataAttr['default'])('number'),
+    review: (0, _emberDataAttr['default'])('number'),
     availability: (0, _emberDataAttr['default'])('boolean'),
     novelty: (0, _emberDataAttr['default'])('boolean'),
     bestseller: (0, _emberDataAttr['default'])('boolean')
@@ -1174,7 +1193,7 @@ define('frontend/pods/components/filter-toggle-ssd/component', ['exports', 'embe
     },
 
     _setOpenParam: function _setOpenParam() {
-      this.set('isOpen', !!this.get('model'));
+      this.set('isOpen', this.get('model') === undefined ? false : true);
     }
   });
 });
@@ -1231,7 +1250,7 @@ define("frontend/pods/components/filter-toggle-ssd/template", ["exports"], funct
             morphs[1] = dom.createAttrMorph(element1, 'onclick');
             return morphs;
           },
-          statements: [["attribute", "checked", ["subexpr", "if", [["get", "model", ["loc", [null, [10, 23], [10, 28]]]], "checked"], [], ["loc", [null, [10, 18], [10, 40]]]]], ["attribute", "onclick", ["subexpr", "action", ["setModel", true], [], ["loc", [null, [11, 18], [11, 45]]]]]],
+          statements: [["attribute", "checked", ["subexpr", "if", [["subexpr", "is-eq", [["get", "model", ["loc", [null, [10, 30], [10, 35]]]], true], [], ["loc", [null, [10, 23], [10, 41]]]], "checked"], [], ["loc", [null, [10, 18], [10, 53]]]]], ["attribute", "onclick", ["subexpr", "action", ["setModel", true], [], ["loc", [null, [11, 18], [11, 45]]]]]],
           locals: [],
           templates: []
         };
@@ -1286,7 +1305,7 @@ define("frontend/pods/components/filter-toggle-ssd/template", ["exports"], funct
             morphs[1] = dom.createAttrMorph(element0, 'onclick');
             return morphs;
           },
-          statements: [["attribute", "checked", ["subexpr", "unless", [["get", "model", ["loc", [null, [19, 27], [19, 32]]]], "checked"], [], ["loc", [null, [19, 18], [19, 44]]]]], ["attribute", "onclick", ["subexpr", "action", ["setModel", false], [], ["loc", [null, [20, 18], [20, 46]]]]]],
+          statements: [["attribute", "checked", ["subexpr", "if", [["subexpr", "is-eq", [["get", "model", ["loc", [null, [19, 30], [19, 35]]]], false], [], ["loc", [null, [19, 23], [19, 42]]]], "checked"], [], ["loc", [null, [19, 18], [19, 54]]]]], ["attribute", "onclick", ["subexpr", "action", ["setModel", false], [], ["loc", [null, [20, 18], [20, 46]]]]]],
           locals: [],
           templates: []
         };
@@ -1803,7 +1822,7 @@ define("frontend/pods/components/product-filter/template", ["exports"], function
             "column": 0
           },
           "end": {
-            "line": 33,
+            "line": 43,
             "column": 0
           }
         },
@@ -1868,20 +1887,36 @@ define("frontend/pods/components/product-filter/template", ["exports"], function
         var el2 = dom.createTextNode("\n");
         dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n\n");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createElement("section");
+        dom.setAttribute(el1, "class", "product-filter--btn");
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("button");
+        dom.setAttribute(el2, "class", "product--basket__btn extend");
+        var el3 = dom.createTextNode("\n    Сбросить\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n");
         dom.appendChild(el0, el1);
         return el0;
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-        var morphs = new Array(5);
+        var element0 = dom.childAt(fragment, [10, 1]);
+        var morphs = new Array(6);
         morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0]), 1, 1);
         morphs[1] = dom.createMorphAt(dom.childAt(fragment, [2]), 1, 1);
         morphs[2] = dom.createMorphAt(dom.childAt(fragment, [4]), 1, 1);
         morphs[3] = dom.createMorphAt(dom.childAt(fragment, [6]), 1, 1);
         morphs[4] = dom.createMorphAt(dom.childAt(fragment, [8]), 1, 1);
+        morphs[5] = dom.createAttrMorph(element0, 'onclick');
         return morphs;
       },
-      statements: [["inline", "filter-toggle-vendor", [], ["model", ["subexpr", "readonly", [["get", "vendorList", ["loc", [null, [4, 22], [4, 32]]]]], [], ["loc", [null, [4, 12], [4, 33]]]], "setModel", ["subexpr", "action", [["get", "setVendor", ["loc", [null, [5, 23], [5, 32]]]]], [], ["loc", [null, [5, 15], [5, 33]]]]], ["loc", [null, [3, 2], [6, 4]]]], ["inline", "filter-toggle-price", [], ["model", ["subexpr", "mut", [["get", "price", ["loc", [null, [11, 35], [11, 40]]]]], [], ["loc", [null, [11, 30], [11, 41]]]]], ["loc", [null, [11, 2], [11, 43]]]], ["inline", "filter-toggle-size", [], ["model", ["subexpr", "mut", [["get", "size", ["loc", [null, [16, 34], [16, 38]]]]], [], ["loc", [null, [16, 29], [16, 39]]]]], ["loc", [null, [16, 2], [16, 41]]]], ["inline", "filter-toggle-memory", [], ["model", ["subexpr", "readonly", [["get", "memoryList", ["loc", [null, [22, 22], [22, 32]]]]], [], ["loc", [null, [22, 12], [22, 33]]]], "setModel", ["subexpr", "action", [["get", "setMemory", ["loc", [null, [23, 23], [23, 32]]]]], [], ["loc", [null, [23, 15], [23, 33]]]]], ["loc", [null, [21, 2], [24, 4]]]], ["inline", "filter-toggle-ssd", [], ["model", ["subexpr", "mut", [["get", "ssd", ["loc", [null, [30, 17], [30, 20]]]]], [], ["loc", [null, [30, 12], [30, 21]]]]], ["loc", [null, [29, 2], [31, 4]]]]],
+      statements: [["inline", "filter-toggle-vendor", [], ["model", ["subexpr", "readonly", [["get", "vendorList", ["loc", [null, [4, 22], [4, 32]]]]], [], ["loc", [null, [4, 12], [4, 33]]]], "setModel", ["subexpr", "action", [["get", "setVendor", ["loc", [null, [5, 23], [5, 32]]]]], [], ["loc", [null, [5, 15], [5, 33]]]]], ["loc", [null, [3, 2], [6, 4]]]], ["inline", "filter-toggle-price", [], ["model", ["subexpr", "mut", [["get", "price", ["loc", [null, [11, 35], [11, 40]]]]], [], ["loc", [null, [11, 30], [11, 41]]]]], ["loc", [null, [11, 2], [11, 43]]]], ["inline", "filter-toggle-size", [], ["model", ["subexpr", "mut", [["get", "size", ["loc", [null, [16, 34], [16, 38]]]]], [], ["loc", [null, [16, 29], [16, 39]]]]], ["loc", [null, [16, 2], [16, 41]]]], ["inline", "filter-toggle-memory", [], ["model", ["subexpr", "readonly", [["get", "memoryList", ["loc", [null, [22, 22], [22, 32]]]]], [], ["loc", [null, [22, 12], [22, 33]]]], "setModel", ["subexpr", "action", [["get", "setMemory", ["loc", [null, [23, 23], [23, 32]]]]], [], ["loc", [null, [23, 15], [23, 33]]]]], ["loc", [null, [21, 2], [24, 4]]]], ["inline", "filter-toggle-ssd", [], ["model", ["subexpr", "mut", [["get", "ssd", ["loc", [null, [30, 17], [30, 20]]]]], [], ["loc", [null, [30, 12], [30, 21]]]]], ["loc", [null, [29, 2], [31, 4]]]], ["attribute", "onclick", ["subexpr", "action", [["get", "reset", ["loc", [null, [38, 21], [38, 26]]]]], [], ["loc", [null, [38, 12], [38, 28]]]]]],
       locals: [],
       templates: []
     };
@@ -1985,6 +2020,50 @@ define("frontend/pods/components/product-list/template", ["exports"], function (
         templates: [child0]
       };
     })();
+    var child1 = (function () {
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.6.1",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 10,
+              "column": 0
+            },
+            "end": {
+              "line": 12,
+              "column": 0
+            }
+          },
+          "moduleName": "frontend/pods/components/product-list/template.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("  ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("li");
+          var el2 = dom.createElement("h2");
+          var el3 = dom.createTextNode("По вашему запросу ничего не найдено");
+          dom.appendChild(el2, el3);
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes() {
+          return [];
+        },
+        statements: [],
+        locals: [],
+        templates: []
+      };
+    })();
     return {
       meta: {
         "fragmentReason": {
@@ -1999,7 +2078,7 @@ define("frontend/pods/components/product-list/template", ["exports"], function (
             "column": 0
           },
           "end": {
-            "line": 11,
+            "line": 13,
             "column": 0
           }
         },
@@ -2022,9 +2101,9 @@ define("frontend/pods/components/product-list/template", ["exports"], function (
         dom.insertBoundary(fragment, null);
         return morphs;
       },
-      statements: [["block", "each", [["get", "model", ["loc", [null, [1, 8], [1, 13]]]]], [], 0, null, ["loc", [null, [1, 0], [10, 9]]]]],
+      statements: [["block", "each", [["get", "model", ["loc", [null, [1, 8], [1, 13]]]]], [], 0, 1, ["loc", [null, [1, 0], [12, 9]]]]],
       locals: [],
-      templates: [child0]
+      templates: [child0, child1]
     };
   })());
 });
@@ -2044,11 +2123,11 @@ define("frontend/pods/components/product-list-item/template", ["exports"], funct
           "loc": {
             "source": null,
             "start": {
-              "line": 29,
+              "line": 30,
               "column": 2
             },
             "end": {
-              "line": 31,
+              "line": 32,
               "column": 2
             }
           },
@@ -2087,11 +2166,11 @@ define("frontend/pods/components/product-list-item/template", ["exports"], funct
           "loc": {
             "source": null,
             "start": {
-              "line": 31,
+              "line": 32,
               "column": 2
             },
             "end": {
-              "line": 33,
+              "line": 34,
               "column": 2
             }
           },
@@ -2136,7 +2215,7 @@ define("frontend/pods/components/product-list-item/template", ["exports"], funct
             "column": 0
           },
           "end": {
-            "line": 40,
+            "line": 41,
             "column": 0
           }
         },
@@ -2260,7 +2339,7 @@ define("frontend/pods/components/product-list-item/template", ["exports"], funct
         dom.insertBoundary(fragment, 0);
         return morphs;
       },
-      statements: [["inline", "product-ballons", [], ["isNovelty", ["subexpr", "readonly", [["get", "novelty", ["loc", [null, [2, 24], [2, 31]]]]], [], ["loc", [null, [2, 14], [2, 32]]]], "isBestseller", ["subexpr", "readonly", [["get", "bestseller", ["loc", [null, [3, 27], [3, 37]]]]], [], ["loc", [null, [3, 17], [3, 38]]]]], ["loc", [null, [1, 0], [4, 2]]]], ["attribute", "src", ["concat", ["assets/images/", ["get", "product.image", ["loc", [null, [7, 23], [7, 36]]]]]]], ["attribute", "alt", ["concat", [["get", "product.brend", ["loc", [null, [8, 9], [8, 22]]]], " ", ["get", "product.model", ["loc", [null, [8, 27], [8, 40]]]]]]], ["content", "product.brend", ["loc", [null, [12, 10], [12, 27]]]], ["content", "product.model", ["loc", [null, [12, 28], [12, 45]]]], ["inline", "product-rating", [], ["rating", ["subexpr", "readonly", [["get", "product.rating", ["loc", [null, [16, 21], [16, 35]]]]], [], ["loc", [null, [16, 11], [16, 36]]]], "review", ["subexpr", "readonly", [["get", "product.review", ["loc", [null, [17, 21], [17, 35]]]]], [], ["loc", [null, [17, 11], [17, 36]]]]], ["loc", [null, [15, 0], [18, 2]]]], ["inline", "format-currency", [["get", "product.priceOld", ["loc", [null, [21, 53], [21, 69]]]]], [], ["loc", [null, [21, 35], [21, 71]]]], ["inline", "format-currency", [["get", "product.price", ["loc", [null, [22, 53], [22, 66]]]]], [], ["loc", [null, [22, 35], [22, 68]]]], ["element", "action", [["get", "addToBasket", ["loc", [null, [24, 50], [24, 61]]]], ["get", "product", ["loc", [null, [24, 62], [24, 69]]]]], [], ["loc", [null, [24, 41], [24, 71]]]], ["block", "if", [["get", "product.availability", ["loc", [null, [29, 8], [29, 28]]]]], [], 0, 1, ["loc", [null, [29, 2], [33, 9]]]]],
+      statements: [["inline", "product-ballons", [], ["isNovelty", ["subexpr", "readonly", [["get", "novelty", ["loc", [null, [2, 24], [2, 31]]]]], [], ["loc", [null, [2, 14], [2, 32]]]], "isBestseller", ["subexpr", "readonly", [["get", "bestseller", ["loc", [null, [3, 27], [3, 37]]]]], [], ["loc", [null, [3, 17], [3, 38]]]]], ["loc", [null, [1, 0], [4, 2]]]], ["attribute", "src", ["concat", ["assets/images/", ["get", "product.image", ["loc", [null, [7, 23], [7, 36]]]]]]], ["attribute", "alt", ["concat", [["get", "product.brend", ["loc", [null, [8, 9], [8, 22]]]], " ", ["get", "product.model", ["loc", [null, [8, 27], [8, 40]]]]]]], ["content", "product.brend", ["loc", [null, [12, 10], [12, 27]]]], ["content", "product.model", ["loc", [null, [12, 28], [12, 45]]]], ["inline", "product-rating", [], ["id", ["subexpr", "readonly", [["get", "product.id", ["loc", [null, [16, 21], [16, 31]]]]], [], ["loc", [null, [16, 11], [16, 32]]]], "rating", ["subexpr", "readonly", [["get", "product.rating", ["loc", [null, [17, 21], [17, 35]]]]], [], ["loc", [null, [17, 11], [17, 36]]]], "review", ["subexpr", "readonly", [["get", "product.review", ["loc", [null, [18, 21], [18, 35]]]]], [], ["loc", [null, [18, 11], [18, 36]]]]], ["loc", [null, [15, 0], [19, 2]]]], ["inline", "format-currency", [["get", "product.price", ["loc", [null, [22, 53], [22, 66]]]]], [], ["loc", [null, [22, 35], [22, 68]]]], ["inline", "format-currency", [["get", "product.priceSale", ["loc", [null, [23, 53], [23, 70]]]]], [], ["loc", [null, [23, 35], [23, 72]]]], ["element", "action", [["get", "addToBasket", ["loc", [null, [25, 50], [25, 61]]]], ["get", "product", ["loc", [null, [25, 62], [25, 69]]]]], [], ["loc", [null, [25, 41], [25, 71]]]], ["block", "if", [["get", "product.availability", ["loc", [null, [30, 8], [30, 28]]]]], [], 0, 1, ["loc", [null, [30, 2], [34, 9]]]]],
       locals: [],
       templates: [child0, child1]
     };
@@ -2271,8 +2350,8 @@ define('frontend/pods/components/product-nav/component', ['exports', 'ember'], f
     classNames: ['product-nav'],
 
     actions: {
-      toggleInStock: function toggleInStock() {
-        this.toggleProperty('inStock');
+      toggleAvailability: function toggleAvailability() {
+        this.toggleProperty('availability');
       }
     }
   });
@@ -2328,7 +2407,7 @@ define("frontend/pods/components/product-nav/template", ["exports"], function (e
           morphs[1] = dom.createElementMorph(element0);
           return morphs;
         },
-        statements: [["attribute", "checked", ["get", "inStock", ["loc", [null, [34, 16], [34, 23]]]]], ["element", "action", ["toggleInStock"], ["preventDefault", false], ["loc", [null, [35, 6], [35, 53]]]]],
+        statements: [["attribute", "checked", ["get", "availability", ["loc", [null, [34, 16], [34, 28]]]]], ["element", "action", ["toggleAvailability"], ["preventDefault", false], ["loc", [null, [35, 6], [35, 58]]]]],
         locals: [],
         templates: []
       };
@@ -2464,6 +2543,84 @@ define('frontend/pods/components/product-rating/component', ['exports', 'ember']
 });
 define("frontend/pods/components/product-rating/template", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
+    var child0 = (function () {
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.6.1",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 5,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 2
+            }
+          },
+          "moduleName": "frontend/pods/components/product-rating/template.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("    Всего ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createComment("");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode(" отзыва\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
+          return morphs;
+        },
+        statements: [["content", "review", ["loc", [null, [6, 10], [6, 20]]]]],
+        locals: [],
+        templates: []
+      };
+    })();
+    var child1 = (function () {
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.6.1",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 9,
+              "column": 2
+            }
+          },
+          "moduleName": "frontend/pods/components/product-rating/template.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("    Оставить отзыв\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes() {
+          return [];
+        },
+        statements: [],
+        locals: [],
+        templates: []
+      };
+    })();
     return {
       meta: {
         "fragmentReason": {
@@ -2478,7 +2635,7 @@ define("frontend/pods/components/product-rating/template", ["exports"], function
             "column": 0
           },
           "end": {
-            "line": 8,
+            "line": 12,
             "column": 0
           }
         },
@@ -2509,13 +2666,10 @@ define("frontend/pods/components/product-rating/template", ["exports"], function
         var el1 = dom.createTextNode("\n");
         dom.appendChild(el0, el1);
         var el1 = dom.createElement("a");
-        dom.setAttribute(el1, "href", "#");
         dom.setAttribute(el1, "class", "product-rating--link");
-        var el2 = dom.createTextNode("\n  ");
+        var el2 = dom.createTextNode("\n");
         dom.appendChild(el1, el2);
         var el2 = dom.createComment("");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n");
         dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n\n");
@@ -2524,14 +2678,16 @@ define("frontend/pods/components/product-rating/template", ["exports"], function
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
         var element0 = dom.childAt(fragment, [0]);
-        var morphs = new Array(2);
+        var element1 = dom.childAt(fragment, [2]);
+        var morphs = new Array(3);
         morphs[0] = dom.createAttrMorph(element0, 'class');
-        morphs[1] = dom.createMorphAt(dom.childAt(fragment, [2]), 1, 1);
+        morphs[1] = dom.createAttrMorph(element1, 'href');
+        morphs[2] = dom.createMorphAt(element1, 1, 1);
         return morphs;
       },
-      statements: [["attribute", "class", ["concat", ["product-rating--stars__", ["get", "rating", ["loc", [null, [1, 37], [1, 43]]]]]]], ["content", "review", ["loc", [null, [5, 2], [5, 12]]]]],
+      statements: [["attribute", "class", ["concat", ["product-rating--stars__", ["get", "rating", ["loc", [null, [1, 37], [1, 43]]]]]]], ["attribute", "href", ["concat", [["get", "id", ["loc", [null, [4, 11], [4, 13]]]], "/review"]]], ["block", "if", [["get", "review", ["loc", [null, [5, 8], [5, 14]]]]], [], 0, 1, ["loc", [null, [5, 2], [9, 9]]]]],
       locals: [],
-      templates: []
+      templates: [child0, child1]
     };
   })());
 });
@@ -2540,15 +2696,14 @@ define('frontend/pods/index/controller', ['exports', 'ember'], function (exports
   var DEFAULT_ITEMS_ON_PAGE = 8;
 
   exports['default'] = _ember['default'].Controller.extend({
-    queryParams: [{ inStock: 'in-stock' }, 'page', 'direction', 'sort', 'memory', 'price', 'size', 'vendor', 'ssd'],
+    queryParams: ['availability', 'count', 'page', 'direction', 'sort', 'memory', 'price', 'size', 'vendor', 'ssd'],
 
     page: 1,
-    inStock: false,
+    availability: false,
     memory: [],
     price: [],
     vendor: [],
     size: [],
-    ssd: false,
     count: DEFAULT_ITEMS_ON_PAGE,
 
     totalPages: _ember['default'].computed('count', 'meta.total', function () {
@@ -2582,7 +2737,28 @@ define('frontend/pods/index/controller', ['exports', 'ember'], function (exports
 
     actions: {
       addToBasket: function addToBasket(product) {
-        alert('Product "' + product.model + '" add to Your basket');
+        alert('Product "' + product.get('brend') + ' ' + product.get('model') + '" add to Your basket');
+      },
+
+      resetFilter: function resetFilter() {
+        var _this3 = this;
+
+        var defaultQueryParams = {
+          count: DEFAULT_ITEMS_ON_PAGE,
+          page: 1,
+          availability: false,
+          memory: [],
+          price: [],
+          vendor: [],
+          size: [],
+          direction: undefined,
+          sort: undefined,
+          ssd: undefined
+        };
+
+        Object.keys(defaultQueryParams).forEach(function (param) {
+          _this3.set(param, defaultQueryParams[param]);
+        });
       }
     }
   });
@@ -2596,6 +2772,22 @@ define('frontend/pods/index/route', ['exports', 'ember'], function (exports, _em
     setupController: function setupController(controller, model) {
       controller.set('model', model);
       controller.set('meta', model.get('meta'));
+    },
+
+    serializeQueryParam: function serializeQueryParam(value, urlKey, defaultValueType) {
+      if (defaultValueType === 'array') {
+        return JSON.stringify(value).replace(/"/g, '');
+      }
+
+      return this._super.apply(this, arguments);
+    },
+
+    deserializeQueryParam: function deserializeQueryParam(value, urlKey, defaultValueType) {
+      if (defaultValueType === 'array') {
+        return value.replace(/(\[|\])/g, '').split(',');
+      }
+
+      return this._super.apply(this, arguments);
     },
 
     actions: {
@@ -2615,11 +2807,11 @@ define("frontend/pods/index/template", ["exports"], function (exports) {
           "loc": {
             "source": null,
             "start": {
-              "line": 27,
+              "line": 28,
               "column": 4
             },
             "end": {
-              "line": 32,
+              "line": 33,
               "column": 4
             }
           },
@@ -2644,7 +2836,7 @@ define("frontend/pods/index/template", ["exports"], function (exports) {
           morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
           return morphs;
         },
-        statements: [["inline", "app-pagination", [], ["total", ["subexpr", "readonly", [["get", "totalPages", ["loc", [null, [29, 29], [29, 39]]]]], [], ["loc", [null, [29, 19], [29, 40]]]], "mainPath", "index"], ["loc", [null, [28, 6], [31, 8]]]]],
+        statements: [["inline", "app-pagination", [], ["total", ["subexpr", "readonly", [["get", "totalPages", ["loc", [null, [30, 29], [30, 39]]]]], [], ["loc", [null, [30, 19], [30, 40]]]], "mainPath", "index"], ["loc", [null, [29, 6], [32, 8]]]]],
         locals: [],
         templates: []
       };
@@ -2662,7 +2854,7 @@ define("frontend/pods/index/template", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 35,
+            "line": 36,
             "column": 0
           }
         },
@@ -2724,7 +2916,7 @@ define("frontend/pods/index/template", ["exports"], function (exports) {
         morphs[3] = dom.createMorphAt(element1, 3, 3);
         return morphs;
       },
-      statements: [["inline", "product-nav", [], ["sort", ["subexpr", "mut", [["get", "sort", ["loc", [null, [4, 16], [4, 20]]]]], [], ["loc", [null, [4, 11], [4, 21]]]], "direction", ["subexpr", "mut", [["get", "direction", ["loc", [null, [5, 21], [5, 30]]]]], [], ["loc", [null, [5, 16], [5, 31]]]], "inStock", ["subexpr", "mut", [["get", "inStock", ["loc", [null, [6, 19], [6, 26]]]]], [], ["loc", [null, [6, 14], [6, 27]]]]], ["loc", [null, [3, 2], [7, 4]]]], ["inline", "product-filter", [], ["ssd", ["subexpr", "mut", [["get", "ssd", ["loc", [null, [11, 17], [11, 20]]]]], [], ["loc", [null, [11, 12], [11, 21]]]], "price", ["subexpr", "mut", [["get", "price", ["loc", [null, [12, 19], [12, 24]]]]], [], ["loc", [null, [12, 14], [12, 25]]]], "size", ["subexpr", "mut", [["get", "size", ["loc", [null, [13, 18], [13, 22]]]]], [], ["loc", [null, [13, 13], [13, 23]]]], "setMemory", ["subexpr", "action", [["subexpr", "mut", [["get", "memory", ["loc", [null, [14, 31], [14, 37]]]]], [], ["loc", [null, [14, 26], [14, 38]]]]], [], ["loc", [null, [14, 18], [14, 39]]]], "memoryList", ["subexpr", "readonly", [["get", "memoryList", ["loc", [null, [15, 29], [15, 39]]]]], [], ["loc", [null, [15, 19], [15, 40]]]], "setVendor", ["subexpr", "action", [["subexpr", "mut", [["get", "vendor", ["loc", [null, [16, 31], [16, 37]]]]], [], ["loc", [null, [16, 26], [16, 38]]]]], [], ["loc", [null, [16, 18], [16, 39]]]], "vendorList", ["subexpr", "readonly", [["get", "vendorList", ["loc", [null, [17, 29], [17, 39]]]]], [], ["loc", [null, [17, 19], [17, 40]]]]], ["loc", [null, [10, 4], [18, 6]]]], ["inline", "product-list", [], ["model", ["subexpr", "readonly", [["get", "model", ["loc", [null, [23, 24], [23, 29]]]]], [], ["loc", [null, [23, 14], [23, 30]]]], "addToBasket", ["subexpr", "action", ["addToBasket"], [], ["loc", [null, [24, 20], [24, 42]]]]], ["loc", [null, [22, 4], [25, 6]]]], ["block", "if", [["get", "isShowPagination", ["loc", [null, [27, 10], [27, 26]]]]], [], 0, null, ["loc", [null, [27, 4], [32, 11]]]]],
+      statements: [["inline", "product-nav", [], ["sort", ["subexpr", "mut", [["get", "sort", ["loc", [null, [4, 16], [4, 20]]]]], [], ["loc", [null, [4, 11], [4, 21]]]], "direction", ["subexpr", "mut", [["get", "direction", ["loc", [null, [5, 21], [5, 30]]]]], [], ["loc", [null, [5, 16], [5, 31]]]], "availability", ["subexpr", "mut", [["get", "availability", ["loc", [null, [6, 24], [6, 36]]]]], [], ["loc", [null, [6, 19], [6, 37]]]]], ["loc", [null, [3, 2], [7, 4]]]], ["inline", "product-filter", [], ["ssd", ["subexpr", "mut", [["get", "ssd", ["loc", [null, [11, 17], [11, 20]]]]], [], ["loc", [null, [11, 12], [11, 21]]]], "price", ["subexpr", "mut", [["get", "price", ["loc", [null, [12, 19], [12, 24]]]]], [], ["loc", [null, [12, 14], [12, 25]]]], "size", ["subexpr", "mut", [["get", "size", ["loc", [null, [13, 18], [13, 22]]]]], [], ["loc", [null, [13, 13], [13, 23]]]], "setMemory", ["subexpr", "action", [["subexpr", "mut", [["get", "memory", ["loc", [null, [14, 31], [14, 37]]]]], [], ["loc", [null, [14, 26], [14, 38]]]]], [], ["loc", [null, [14, 18], [14, 39]]]], "memoryList", ["subexpr", "readonly", [["get", "memoryList", ["loc", [null, [15, 29], [15, 39]]]]], [], ["loc", [null, [15, 19], [15, 40]]]], "setVendor", ["subexpr", "action", [["subexpr", "mut", [["get", "vendor", ["loc", [null, [16, 31], [16, 37]]]]], [], ["loc", [null, [16, 26], [16, 38]]]]], [], ["loc", [null, [16, 18], [16, 39]]]], "vendorList", ["subexpr", "readonly", [["get", "vendorList", ["loc", [null, [17, 29], [17, 39]]]]], [], ["loc", [null, [17, 19], [17, 40]]]], "reset", ["subexpr", "action", ["resetFilter"], [], ["loc", [null, [18, 14], [18, 36]]]]], ["loc", [null, [10, 4], [19, 6]]]], ["inline", "product-list", [], ["model", ["subexpr", "readonly", [["get", "model", ["loc", [null, [24, 24], [24, 29]]]]], [], ["loc", [null, [24, 14], [24, 30]]]], "addToBasket", ["subexpr", "action", ["addToBasket"], [], ["loc", [null, [25, 20], [25, 42]]]]], ["loc", [null, [23, 4], [26, 6]]]], ["block", "if", [["get", "isShowPagination", ["loc", [null, [28, 10], [28, 26]]]]], [], 0, null, ["loc", [null, [28, 4], [33, 11]]]]],
       locals: [],
       templates: [child0]
     };
@@ -2803,7 +2995,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("frontend/app")["default"].create({"name":"frontend","version":"0.0.1+59e9041f"});
+  require("frontend/app")["default"].create({"name":"frontend","version":"0.0.1+d6c324b7"});
 }
 
 /* jshint ignore:end */
