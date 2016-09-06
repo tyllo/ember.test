@@ -4,7 +4,7 @@ module.exports = function(environment) {
   var ENV = {
     modulePrefix: 'frontend',
     environment: environment,
-    baseURL: '/',
+    rootURL: '/',
     locationType: 'auto',
     podModulePrefix: 'frontend/pods',
     exportApplicationGlobal: true,
@@ -31,7 +31,7 @@ module.exports = function(environment) {
 
   if (environment === 'test') {
     // Testem prefers this...
-    ENV.baseURL = '/';
+    ENV.rootURL = '/';
     ENV.locationType = 'none';
 
     // keep test console output quieter
