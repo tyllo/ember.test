@@ -1,0 +1,27 @@
+{
+  "name": "frontend",
+  "version": "0.0.1",
+  "description": "ember test",
+  "private": true,
+  "directories": {
+    "doc": "doc",
+    "test": "tests"
+  },
+  "scripts": {
+    "build": "ember build",
+    "start": "ember server",
+    "test": "ember test"
+  },
+  "repository": "",
+  "engines": {
+    "node": ">= 6.1.0"
+  },
+  "author": "tyllo",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.14.0",
+    "glob": "^4.5.3",
+    "lodash": "^4.13.1",
+    "morgan": "^1.7.0"
+  }
+}
