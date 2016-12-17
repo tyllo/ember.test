@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "target": "es6",
+    "sourceMap": false,
+    "inlineSourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "frontend/*": [
+        "app/*"
+      ]
+    }
+  },
+  "exclude": [
+    ".git",
+    "bower_components",
+    "node_modules",
+    "dist",
+    "tmp"
+  ]
+}

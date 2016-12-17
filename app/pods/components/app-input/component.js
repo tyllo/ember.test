@@ -8,7 +8,7 @@ export default Ember.Component.extend({
   classNames: ['app-input'],
 
   init() {
-    var className = CLASS_NAME;
+    let className = CLASS_NAME;
 
     if (this.get('modifer') !== undefined) {
       className += '__' + this.get('modifer');

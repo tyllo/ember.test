@@ -1,5 +1,8 @@
 /* jshint node: true */
 
+/**
+ * @param {'development' | 'test' | 'production'} environment
+ */
 module.exports = function(environment) {
   var ENV = {
     modulePrefix: 'frontend',

@@ -1,5 +1,8 @@
 import Ember from 'ember';
 
+/**
+ * @param {Number} total
+ */
 export default Ember.Component.extend({
   tagName: 'nav',
   classNames: ['pagination'],

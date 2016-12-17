@@ -14,7 +14,7 @@ export default Ember.Component.extend({
   },
 
   click() {
-    var direction = this.get('direction') === 'desc' ? 'asc' : 'desc';
+    const direction = this.get('direction') === 'desc' ? 'asc' : 'desc';
 
     this.attrs.direction.update(direction);
     this.attrs.sortName.update(this.get('name'));

@@ -1,8 +1,11 @@
 import Ember from 'ember';
 
-let PATTERN = /(\d)(?=(\d\d\d)+([^\d]|$))/g;
+const PATTERN = /(\d)(?=(\d\d\d)+([^\d]|$))/g;
 
-export function formatCurrency([value]/*, hash*/) {
+/** @param {String[]} params */
+export function formatCurrency(params/*, hash*/) {
+  let [value] = params;
+
   if (value !== undefined) {
     value = value.toString().replace(PATTERN, '$1 ');
   }

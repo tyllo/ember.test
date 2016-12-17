@@ -1,6 +1,9 @@
 import Ember from 'ember';
 
-export function isEqualByModul([index, count]/*, hash*/) {
+/** @param {Number[]} params */
+export function isEqualByModul(params/*, hash*/) {
+  const [index, count] = params;
+
   return index && (index % count === 0);
 }
 

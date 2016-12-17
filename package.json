@@ -19,6 +19,10 @@
   "author": "tyllo",
   "license": "MIT",
   "devDependencies": {
+    "@types/ember": "^2.7.35",
+    "@types/jquery": "^2.0.34",
+    "@types/lodash": "^4.14.43",
+    "@types/node": "^6.0.52",
     "broccoli-asset-rev": "^2.4.6",
     "ember-cli": "^2.7.0",
     "ember-cli-app-version": "^1.0.1",

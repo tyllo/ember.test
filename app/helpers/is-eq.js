@@ -1,6 +1,9 @@
 import Ember from 'ember';
 
-export function isEq([a, b]/*, hash*/) {
+/** @param {String[]} params */
+export function isEq(params/*, hash*/) {
+  const [a, b] = params;
+
   if (a === undefined) { return false; }
   return a.toString() === b.toString();
 }
